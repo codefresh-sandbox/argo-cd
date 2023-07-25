@@ -174,7 +174,7 @@ jobs:
           chmod +x ./dist/argocd-*
         if: ${{ env.DRY_RUN != 'true' }}
 
-      - name: Store release notes as artifact
+      - name: Upload binaries artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT_NAME }}
@@ -220,6 +220,7 @@ jobs:
     env:
       TARGET_BRANCH: ${{ needs.prepare-release.outputs.TARGET_BRANCH }}
       RELEASE_TAG: ${{ needs.prepare-release.outputs.RELEASE_TAG }}
+      RELEASE_NOTES: ${{ needs.prepare-release.outputs.RELEASE_NOTES }}
     needs:
       - prepare-release
       - binaries
@@ -250,17 +251,6 @@ jobs:
           set -ue
           echo "Creating release ${RELEASE_TAG}"
           git tag ${RELEASE_TAG}
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ needs.prepare-release.outputs.ARTIFACT_NAME }}
-          path: /tmp/release-notes/
-
-      - name: Read release notes file
-        id: release-notes
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ${{ env.RELEASE_NOTES }}
 
       - name: Push changes to release branch
         run: |
