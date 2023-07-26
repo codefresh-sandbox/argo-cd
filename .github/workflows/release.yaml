@@ -210,7 +210,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ env.DRY_RUN != 'true' }}
-          tags: ${{ env.IMAGE_NAMESPACE }}/argocd:v${{ env. TARGET_VERSION }}
+          tags: ${{ env.IMAGE_NAMESPACE }}/argocd:v${{ env.TARGET_VERSION }}
           provenance: false
           sbom: false
           # Cached layers will only be re-used when building the same image. This can only happen when:
@@ -222,8 +222,8 @@ jobs:
           # runs for two different tags cannot access the same cache. Hence, we limit the cache scope to the image tag.
           #
           # See: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#restrictions-for-accessing-a-cache
-          cache-from: type=gha,scope=v${{ env. TARGET_VERSION }}
-          cache-to: type=gha,mode=max,scope=v${{ env. TARGET_VERSION }}
+          cache-from: type=gha,scope=v${{ env.TARGET_VERSION }}
+          cache-to: type=gha,mode=max,scope=v${{ env.TARGET_VERSION }}
 
   release:
     name: Create Release
