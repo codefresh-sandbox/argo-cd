@@ -303,6 +303,10 @@ jobs:
           cd /tmp && tar -zcf sbom.tar.gz *.spdx
         if: ${{ env.DRY_RUN != 'true' }}
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.binaries.outputs.ARTIFACT_NAME }}
+
       - name: Release
         id: create_release
         uses: softprops/action-gh-release@v1
