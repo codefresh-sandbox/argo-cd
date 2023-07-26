@@ -213,6 +213,15 @@ jobs:
           tags: ${{ env.IMAGE_NAMESPACE }}/argocd:v${{ env. TARGET_VERSION }}
           provenance: false
           sbom: false
+          # Cached layers will only be re-used when building the same image. This can only happen when:
+          #
+          # * The release workflow fails and is then retried.
+          # * The same release tag is deleted and then re-pushed.
+          # 
+          # A global layer cache for the entire repository cannot be used. This is because in the context of runs triggered by tag pushes,
+          # runs for two different tags cannot access the same cache. Hence, we limit the cache scope to the image tag.
+          #
+          # See: https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#restrictions-for-accessing-a-cache
           cache-from: type=gha,scope=v${{ env. TARGET_VERSION }}
           cache-to: type=gha,mode=max,scope=v${{ env. TARGET_VERSION }}
 
