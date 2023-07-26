@@ -259,6 +259,11 @@ jobs:
           # git push origin ${TARGET_BRANCH}
           git push origin ${RELEASE_TAG}
 
+      - name: Setup Golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GOLANG_VERSION }}
+
       - name: Generate SBOM (spdx)
         id: spdx-builder
         env:
