@@ -213,8 +213,8 @@ jobs:
           tags: ${{ env.IMAGE_NAMESPACE }}/argocd:v${{ env. TARGET_VERSION }}
           provenance: false
           sbom: false
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=v${{ env. TARGET_VERSION }}
+          cache-to: type=gha,mode=max,scope=v${{ env. TARGET_VERSION }}
 
   release:
     name: Create Release
