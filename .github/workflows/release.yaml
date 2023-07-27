@@ -184,6 +184,9 @@ jobs:
   container-image:
     name: Build and Push Container Images for Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Needed to create an OIDC token for keyless signing
     needs:
       - prepare-release
     env:
