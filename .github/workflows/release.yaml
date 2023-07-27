@@ -232,6 +232,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TARGET_BRANCH: ${{ needs.prepare-release.outputs.TARGET_BRANCH }}
+      TARGET_VERSION: ${{ needs.prepare-release.outputs.TARGET_VERSION }}
       RELEASE_TAG: ${{ needs.prepare-release.outputs.RELEASE_TAG }}
       RELEASE_NOTES: ${{ needs.prepare-release.outputs.RELEASE_NOTES }}
     needs:
